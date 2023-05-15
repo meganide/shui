@@ -1,7 +1,8 @@
 import { db } from '../server.js';
 
-function getMessages() {
-  console.log('hämta messages från db');
+async function getMessages() {
+  const messages = await db.all("SELECT * FROM Message");
+  return messages;
 }
 
 async function createMessage(message) {
