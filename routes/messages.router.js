@@ -1,8 +1,9 @@
 import express from 'express';
-import { getMessages } from "../controllers/messages.controller.js";
+import { httpCreateMessage, httpGetMessages } from '../controllers/messages.controller.js';
 
 const messagesRouter = express.Router();
 
-messagesRouter.use('/', getMessages);
+messagesRouter.get('/', httpGetMessages);
+messagesRouter.post('/', httpCreateMessage);
 
 export { messagesRouter };
