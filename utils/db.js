@@ -21,7 +21,7 @@ async function createTable() {
   CREATE TABLE IF NOT EXISTS Channel (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Name VARCHAR(30) NOT NULL,
-    CreatedAt TEXT
+    CreatedAt DATETIME DEFAULT (CURRENT_TIMESTAMP)
   );
 
   CREATE TABLE IF NOT EXISTS Owner (
@@ -43,8 +43,8 @@ async function createTable() {
   CREATE TABLE IF NOT EXISTS Message (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Text TEXT,
-    CreatedAt TEXT,
-    UpdatedAt TEXT
+    CreatedAt DATETIME DEFAULT (CURRENT_TIMESTAMP),
+    UpdatedAt DATETIME DEFAULT (CURRENT_TIMESTAMP)
   );
 
   CREATE TABLE IF NOT EXISTS MessageToChannelToUser (
