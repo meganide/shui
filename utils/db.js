@@ -7,6 +7,8 @@ async function createDbConnection() {
 }
 
 async function createTable() {
+  console.log("Creating tables!")
+
   await db.exec(`
   CREATE TABLE IF NOT EXISTS User (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
