@@ -89,7 +89,7 @@ const isLoggedIn = async (req, res, next) => {
       });
     }
 
-    req.user = freshUser;
+    req.userId = freshUser.Id;
 
     next();
   } catch (err) {
@@ -101,14 +101,12 @@ const isLoggedIn = async (req, res, next) => {
 };
 
 const test = async (req, res, next) => {
-  req.user.Password = undefined;
-
   console.log('Du har tillgång till den här routen och användardata finns i req-objektet i next.');
 
   res.status(200).json({
     status: 'success',
     data: {
-      user: req.user,
+      user: req.userId,
     },
   });
 };
