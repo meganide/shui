@@ -26,7 +26,9 @@ async function httpCreateChannel(req, res) {
 
   try {
     const newChannel = await createChannel(name);
-    createOwner(newChannel.id, userId);
+    const { lastID } = newChannel;
+    console.log(lastID);
+    createOwner(lastID, userId);
     return res.status(200).json({ success: true });
   } catch (error) {
     console.log(error);
