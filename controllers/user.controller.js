@@ -80,7 +80,7 @@ const isLoggedIn = async (req, res, next) => {
   try {
     const decoded = await promisify(jwt.verify)(token, TOKEN_SECRET);
 
-    const freshUser = await checkIfUserExists(decoded.id); // Implement checkIfUserExists function
+    const freshUser = await checkIfUserExists(decoded.id);
 
     if (!freshUser) {
       return res.status(404).json({
@@ -103,7 +103,7 @@ const isLoggedIn = async (req, res, next) => {
 const test = async (req, res, next) => {
   req.user.Password = undefined;
 
-  console.log('Du har tillgång till den här routen.');
+  console.log('Du har tillgång till den här routen och användardata finns i req-objektet i next.');
 
   res.status(200).json({
     status: 'success',
