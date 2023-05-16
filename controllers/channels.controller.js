@@ -1,4 +1,5 @@
 import { getChannels, createChannel } from "../models/channels.models.js";
+import { createOwner } from "../models/owner.models.js";
 
 async function httpGetChannels(req, res) {
   try {
@@ -15,6 +16,7 @@ async function httpGetChannels(req, res) {
 
 async function httpCreateChannel(req, res) {
   const { name } = req.body;
+  const userId = req.userId;
 
   if (!name) {
     return res
@@ -23,7 +25,8 @@ async function httpCreateChannel(req, res) {
   }
 
   try {
-    createChannel(name);
+    const newChannel = await createChannel(name);
+    createOwner(newChannel.id, userId);
     return res.status(200).json({ success: true });
   } catch (error) {
     console.log(error);
