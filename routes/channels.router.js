@@ -1,12 +1,12 @@
 import express from "express";
 import {
-  httpCreateChannels,
+  httpCreateChannel,
   httpGetChannels,
-} from "../controllers/channels.controller";
+} from "../controllers/channels.controller.js";
 
 const channelsRouter = express.Router();
 
 channelsRouter.get("/", httpGetChannels);
-channelsRouter.post("/", httpCreateChannels);
+channelsRouter.post("/", httpCreateChannel);
 
 export { channelsRouter };

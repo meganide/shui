@@ -1,7 +1,8 @@
 import { db } from "../server.js";
 
-function getChannels() {
-  console.log("hämta channels från db");
+async function getChannels() {
+  const channels = await db.all("SELECT * FROM Channel");
+  return channels;
 }
 
 async function createChannel(channel) {
