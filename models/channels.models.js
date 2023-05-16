@@ -6,7 +6,11 @@ async function getChannels() {
 }
 
 async function createChannel(channel) {
-  await db.run("INSERT INTO Channel (Name) VALUES(?)", channel);
+  const createdChannel = await db.run(
+    "INSERT INTO Channel (Name) VALUES(?)",
+    channel
+  );
+  return createdChannel;
 }
 
 export { getChannels, createChannel };
