@@ -6,7 +6,8 @@ async function getMessages() {
 }
 
 async function createMessage(message) {
-  await db.run('INSERT INTO Message (Text) VALUES(?)', message);
+  const messageId = await db.run('INSERT INTO Message (Text) VALUES(?)', message);
+  return messageId;
 }
 
 export { getMessages, createMessage };
