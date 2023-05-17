@@ -1,5 +1,5 @@
-import { getChannels, createChannel } from "../models/channels.models.js";
-import { createOwner } from "../models/owner.models.js";
+import { getChannels, createChannel } from '../models/channels.models.js';
+import { createOwner } from '../models/owner.models.js';
 
 async function httpGetChannels(req, res) {
   try {
@@ -9,7 +9,7 @@ async function httpGetChannels(req, res) {
     console.log(error);
     return res.status(500).json({
       success: false,
-      error: "Server error occurred while getting the channels.",
+      error: 'Server error occurred while getting the channels.',
     });
   }
 }
@@ -19,9 +19,7 @@ async function httpCreateChannel(req, res) {
   const userId = req.userId;
 
   if (!name) {
-    return res
-      .status(400)
-      .json({ success: false, error: "Must specify a channel name." });
+    return res.status(400).json({ success: false, error: 'Must specify a channel name.' });
   }
 
   try {
@@ -34,7 +32,7 @@ async function httpCreateChannel(req, res) {
     console.log(error);
     return res.status(500).json({
       success: false,
-      error: "Server error occurred while creating the channel.",
+      error: 'Server error occurred while creating the channel.',
     });
   }
 }

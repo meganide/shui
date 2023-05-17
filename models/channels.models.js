@@ -5,6 +5,11 @@ async function getChannels() {
   return channels;
 }
 
+async function getChannelById(channelId) {
+  const channel = await db.get("SELECT * FROM Channel WHERE id = ?", channelId);
+  return channel;
+}
+
 async function createChannel(channel) {
   const createdChannel = await db.run(
     "INSERT INTO Channel (Name) VALUES(?)",
@@ -13,4 +18,4 @@ async function createChannel(channel) {
   return createdChannel;
 }
 
-export { getChannels, createChannel };
+export { getChannels, getChannelById, createChannel };
