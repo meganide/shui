@@ -1,31 +1,22 @@
 import { createMessageInChannel } from '../models/MessageToChannelToUser.models.js';
 import { getChannelById } from '../models/channels.models.js';
-import { createMessage, getMessages } from '../models/messages.models.js';
+import { createMessage, getMessagesInChannel } from '../models/messages.models.js';
 import { getSubscription } from '../models/subscribe.models.js';
 
-async function httpGetMessages(req, res) {
+async function httpGetMessagesByChannelId(req, res) {
+  const { channelId } = req.params;
+  let { sort } = req.query;
+
+  sort = sort?.toLowerCase();
+
   try {
-    const { channelId, sort } = req.query;
-    const messages = await getMessages(channelId, sort);
+    const messages = await getMessagesInChannel(channelId, sort);
     return res.status(200).json({ success: true, messages });
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .json({ success: false, error: 'Server error occurred while fetching the messages.' });
+    return res.status(500).json({ success: false, error: 'Server error occurred while fetching the messages.' });
   }
 }
-
-// async function httpGetMessages(req, res) {
-
-//   try {
-//     const messages = await getMessages();
-//     return res.status(200).json({ sucess: true, messages });
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(500).json({ success: false, error: 'Server error occurred while creating the message.' });
-//   }
-// }
 
 async function httpCreateMessage(req, res) {
   let { text, channelIds } = req.body;
@@ -58,7 +49,7 @@ async function httpCreateMessage(req, res) {
         const channel = await getChannelById(notSubscribedChannel.channelId);
         if (!channel) {
           return res.status(404).json({
-            sucess: false,
+            success: false,
             error: `Channel with Id: ${notSubscribedChannel.channelId} does not exist!`,
           });
         }
@@ -66,7 +57,7 @@ async function httpCreateMessage(req, res) {
       }
 
       return res.status(401).json({
-        sucess: false,
+        success: false,
         error: `You are not following the following channel: ${notSubscribedChannels[0].name}`,
       });
     }
@@ -81,10 +72,8 @@ async function httpCreateMessage(req, res) {
     return res.status(200).json({ sucess: true });
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .json({ success: false, error: 'Server error occurred while creating the message.' });
+    return res.status(500).json({ success: false, error: 'Server error occurred while creating the message.' });
   }
 }
 
-export { httpGetMessages, httpCreateMessage };
+export { httpGetMessagesByChannelId, httpCreateMessage };

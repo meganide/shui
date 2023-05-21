@@ -1,5 +1,5 @@
 import express from "express";
-import { userRouter } from './user.routes.js';
+import { userRouter } from './user.router.js';
 import { messagesRouter } from "./messages.router.js";
 import { channelsRouter } from "./channels.router.js";
 import { subscribeRouter } from "./subscribe.router.js";

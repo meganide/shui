@@ -1,10 +1,10 @@
 import express from 'express';
-import { httpCreateMessage, httpGetMessages } from '../controllers/messages.controller.js';
-import { isLoggedIn } from "../controllers/user.controller.js";
+import { httpCreateMessage, httpGetMessagesByChannelId } from '../controllers/messages.controller.js';
+import { isLoggedIn } from "../middleware/requireAuth.middleware.js";
 
 const messagesRouter = express.Router();
 
-messagesRouter.get('/', httpGetMessages);
+messagesRouter.get('/:channelId', httpGetMessagesByChannelId);
 messagesRouter.post('/', isLoggedIn, httpCreateMessage);
 
 export { messagesRouter };

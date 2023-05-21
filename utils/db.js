@@ -20,12 +20,12 @@ async function createTable() {
 
   CREATE TABLE IF NOT EXISTS Channel (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Name VARCHAR(30) NOT NULL,
+    Name VARCHAR(30) NOT NULL UNIQUE,
     CreatedAt DATETIME DEFAULT (CURRENT_TIMESTAMP)
   );
 
   CREATE TABLE IF NOT EXISTS Owner (
-    ChannelId INTEGER,
+    ChannelId INTEGER UNIQUE,
     UserId INTEGER,
     PRIMARY KEY (ChannelId, UserId),
     FOREIGN KEY (ChannelId) REFERENCES Channel(Id),

@@ -1,15 +1,20 @@
 import { db } from '../server.js';
 
 // localhost:8001/api/messages?channelId=1&sort=createdAt
-async function getMessages(channelId, sort) {
+async function getMessagesInChannel(channelId, sort) {
   let query = `
     SELECT Message.*
     FROM Message
     INNER JOIN MessageToChannelToUser ON Message.id = MessageToChannelToUser.messageId
     WHERE MessageToChannelToUser.channelId = ?
   `;
-  if (sort === 'createdAt') {
+
+  if (sort === 'desc') {
     query += ' ORDER BY createdAt DESC';
+  }
+
+  if (sort === 'asc') {
+    query += ' ORDER BY createdAt ASC';
   }
 
   const params = [channelId];
@@ -18,14 +23,10 @@ async function getMessages(channelId, sort) {
   return messages;
 }
 
-// async function getMessages() {
-//   const messages = await db.all("SELECT * FROM Message");
-//   return messages;
-// }
 
 async function createMessage(message) {
   const messageId = await db.run('INSERT INTO Message (Text) VALUES(?)', message);
   return messageId;
 }
 
-export { getMessages, createMessage };
+export { getMessagesInChannel, createMessage };
